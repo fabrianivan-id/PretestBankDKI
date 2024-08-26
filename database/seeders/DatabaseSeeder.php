@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
             PekerjaanSeeder::class,
             ProvinceSeeder::class,
             RekeningSeeder::class,
+            VillageSeeder::class,
+            DistrictSeeder::class,
+            CitySeeder::class,
         ]);
     }
 }

@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('rekening.index');
+            return redirect()->intended('rekening');
         }
         return redirect('login')->withErrors('Login gagal, periksa email dan password Anda.');
     }

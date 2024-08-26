@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Wanita']);
-            $table->foreignId('pekerjaan_id')->constrained('master_pekerjaan');
+            $table->foreignId('pekerjaan_id')->constrained('pekerjaan');
             $table->foreignId('province_id')->constrained('provinces');
             $table->foreignId('city_id')->constrained('cities');
             $table->foreignId('district_id')->constrained('districts');

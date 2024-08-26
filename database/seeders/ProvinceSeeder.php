@@ -2,15 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Province;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProvinceSeeder extends Seeder
 {
     public function run()
     {
-        Province::table('provinces')->insert([
+        DB::table('provinces')->insert([
             ['name' => 'DKI Jakarta'],
             ['name' => 'Jawa Barat'],
             ['name' => 'Jawa Tengah'],
