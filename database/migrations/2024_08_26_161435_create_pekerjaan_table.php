@@ -8,7 +8,7 @@ class CreatePekerjaanTable extends Migration
 {
     public function up()
     {
-        Schema::create('pekerjaan', function (Blueprint $table) {
+        Schema::create('pekerjaans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

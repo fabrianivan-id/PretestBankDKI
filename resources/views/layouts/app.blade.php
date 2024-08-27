@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank Backend Service</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!-- Optional custom styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
     <style>
         body {
             padding-top: 56px;
@@ -47,11 +47,10 @@
             padding: 20px;
         }
         footer {
-            position: fixed;
             bottom: 0;
             width: 100%;
-            background: #343a40;
-            color: #fff;
+            background: white;
+            color: turquoise;
             text-align: center;
             padding: 10px 0;
         }

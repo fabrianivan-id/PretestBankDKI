@@ -1,3 +1,5 @@
+<!-- resources/views/dashboard/index.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
@@ -12,8 +14,18 @@
             <div class="card text-white bg-primary">
                 <div class="card-header">Recent Applications</div>
                 <div class="card-body">
-                    <h5 class="card-title">Applications</h5>
-                    <p class="card-text">No recent applications.</p>
+                    <h5 class="card-title">Recent Applications</h5>
+                    @if($recentApplications->isEmpty())
+                        <p class="card-text">No recent applications.</p>
+                    @else
+                        <ul class="list-group" style="color:black;">
+                            @foreach($recentApplications as $application)
+                                <li class="list-group-item">
+                                    {{ $application->nama_ktp }} - {{ $application->created_at->format('d-m-Y H:i') }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>
@@ -30,8 +42,15 @@
             <div class="card text-white bg-danger">
                 <div class="card-header">Alerts</div>
                 <div class="card-body">
-                    <h5 class="card-title">No Alerts</h5>
-                    <p class="card-text">There are currently no alerts.</p>
+                    <h5 class="card-title">Pending Applications</h5>
+                    <p class="card-text">
+                        There are currently {{ $pendingCount }} application(s) waiting for approval.
+                    </p>
+                    @if($pendingCount > 0)
+                        <div class="alert alert-warning">
+                            <strong>Alert!</strong> There are {{ $pendingCount }} application(s) waiting for approval.
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

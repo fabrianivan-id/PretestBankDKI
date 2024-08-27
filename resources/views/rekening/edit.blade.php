@@ -1,10 +1,10 @@
-<!-- resources/views/rekening/create.blade.php -->
+<!-- resources/views/rekening/edit.blade.php -->
 
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>Buat Pengajuan Rekening Baru</h1>
+    <h1>Edit Pengajuan Rekening</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -16,56 +16,40 @@
         </div>
     @endif
 
-    <form action="{{ route('rekening.store') }}" method="POST">
+    <form action="{{ route('rekening.update', $rekening->id) }}" method="POST">
         @csrf
+        @method('PUT')
 
         <div class="form-group">
             <label for="nama_ktp">Nama Sesuai KTP:</label>
-            <input type="text" name="nama_ktp" class="form-control" value="{{ old('nama_ktp') }}" required>
+            <input type="text" name="nama_ktp" class="form-control" value="{{ old('nama_ktp', $rekening->nama_ktp) }}" required>
         </div>
 
         <div class="form-group">
             <label for="tempat_lahir">Tempat Lahir:</label>
-            <input type="text" name="tempat_lahir" class="form-control" value="{{ old('tempat_lahir') }}" required>
+            <input type="text" name="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $rekening->tempat_lahir) }}" required>
         </div>
 
         <div class="form-group">
             <label for="tanggal_lahir">Tanggal Lahir:</label>
-            <input type="date" name="tanggal_lahir" class="form-control" value="{{ old('tanggal_lahir') }}" required>
+            <input type="date" name="tanggal_lahir" class="form-control" value="{{ old('tanggal_lahir', $rekening->tanggal_lahir) }}" required>
         </div>
 
         <div class="form-group">
             <label for="jenis_kelamin">Jenis Kelamin:</label>
             <select name="jenis_kelamin" class="form-control" required>
-                <option value="">Pilih Jenis Kelamin</option>
-                <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                <option value="Wanita" {{ old('jenis_kelamin') == 'Wanita' ? 'selected' : '' }}>Wanita</option>
+                <option value="Laki-laki" {{ old('jenis_kelamin', $rekening->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                <option value="Wanita" {{ old('jenis_kelamin', $rekening->jenis_kelamin) == 'Wanita' ? 'selected' : '' }}>Wanita</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="pekerjaan_id">Pekerjaan:</label>
             <select name="pekerjaan_id" class="form-control" required>
-            <option value="">Pilih Pekerjaan</option>
                 @foreach($pekerjaans as $pekerjaan)
-                    <option value="{{ $pekerjaan->id }}" {{ old('pekerjaan_id') == $pekerjaan->id ? 'selected' : '' }}>{{ $pekerjaan->name }}</option>
+                    <option value="{{ $pekerjaan->id }}" {{ old('pekerjaan_id', $rekening->pekerjaan_id) == $pekerjaan->id ? 'selected' : '' }}>{{ $pekerjaan->name }}</option>
                 @endforeach
             </select>
-        </div>
-       
-        <div class="form-group">
-            <label for="nama_jalan">Nama Jalan:</label>
-            <input type="text" name="nama_jalan" class="form-control" value="{{ old('nama_jalan') }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="rt">RT:</label>
-            <input type="text" name="rt" class="form-control" value="{{ old('rt') }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="rw">RW:</label>
-            <input type="text" name="rw" class="form-control" value="{{ old('rw') }}" required>
         </div>
 
         <div class="form-group">
@@ -73,7 +57,7 @@
             <select name="province_id" class="form-control" id="province" required>
                 <option value="">Pilih Provinsi</option>
                 @foreach($provinces as $province)
-                    <option value="{{ $province->id }}" {{ old('province_id') == $province->id ? 'selected' : '' }}>{{ $province->name }}</option>
+                    <option value="{{ $province->id }}" {{ old('province_id', $rekening->province_id) == $province->id ? 'selected' : '' }}>{{ $province->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -98,26 +82,40 @@
                 <!-- Options will be populated by JavaScript -->
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="nama_jalan">Nama Jalan:</label>
+            <input type="text" name="nama_jalan" class="form-control" value="{{ old('nama_jalan', $rekening->nama_jalan) }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rt">RT:</label>
+            <input type="text" name="rt" class="form-control" value="{{ old('rt', $rekening->rt) }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rw">RW:</label>
+            <input type="text" name="rw" class="form-control" value="{{ old('rw', $rekening->rw) }}" required>
+        </div>
+
         <div class="form-group">
             <label for="nominal_setor">Nominal Setor:</label>
-            <input type="number" name="nominal_setor" class="form-control" value="{{ old('nominal_setor') }}" required>
+            <input type="number" name="nominal_setor" class="form-control" value="{{ old('nominal_setor', $rekening->nominal_setor) }}" required>
         </div>
-        <div class="form-group">
-        <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
 @endsection
 
 @section('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#province').on('change', function() {
             var provinceId = $(this).val();
             if (provinceId) {
                 $.ajax({
-                    url: '{{ url("/getCities") }}/' + provinceId,
+                    url: '/getCities/' + provinceId,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
@@ -138,7 +136,7 @@
             var cityId = $(this).val();
             if (cityId) {
                 $.ajax({
-                    url: '{{ url("/getDistricts") }}/' + cityId,
+                    url: '/getDistricts/' + cityId,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
@@ -158,7 +156,7 @@
             var districtId = $(this).val();
             if (districtId) {
                 $.ajax({
-                    url: '{{ url("/getVillages") }}/' + districtId,
+                    url: '/getVillages/' + districtId,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
@@ -174,4 +172,5 @@
         });
     });
 </script>
+
 @endsection

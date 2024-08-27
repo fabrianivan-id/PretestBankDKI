@@ -10,7 +10,7 @@ class RekeningSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('rekening')->insert([
+        DB::table('rekenings')->insert([
             [
                 'nama_ktp' => 'John Doe',
                 'tempat_lahir' => 'Jakarta',

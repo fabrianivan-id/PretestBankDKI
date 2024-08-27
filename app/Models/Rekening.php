@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,28 +10,44 @@ class Rekening extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_ktp', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 
-        'pekerjaan_id', 'province_id', 'city_id', 'district_id', 
-        'village_id', 'nama_jalan', 'rt', 'rw', 'nominal_setor', 'status'
+        'nama_ktp',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'jenis_kelamin',
+        'pekerjaan_id',
+        'province_id',
+        'city_id',
+        'district_id',
+        'village_id',
+        'nama_jalan',
+        'rt',
+        'rw',
+        'nominal_setor',
+        'status',
     ];
 
-    public function pekerjaan() {
+    public function pekerjaan()
+    {
         return $this->belongsTo(Pekerjaan::class);
     }
 
-    public function province() {
+    public function province()
+    {
         return $this->belongsTo(Province::class);
     }
 
-    public function city() {
+    public function city()
+    {
         return $this->belongsTo(City::class);
     }
 
-    public function district() {
+    public function district()
+    {
         return $this->belongsTo(District::class);
     }
 
-    public function village() {
+    public function village()
+    {
         return $this->belongsTo(Village::class);
     }
 }

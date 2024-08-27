@@ -9,7 +9,7 @@ class PekerjaanSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('pekerjaan')->insert([
+        DB::table('pekerjaans')->insert([
             ['name' => 'Pegawai Negeri'],
             ['name' => 'Wiraswasta'],
             ['name' => 'Pelajar'],

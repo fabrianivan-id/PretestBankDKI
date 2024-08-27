@@ -14,6 +14,7 @@ class CheckRole
             return $next($request);
         }
         
-        return redirect('login')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        return redirect('/')->withErrors('Anda tidak memiliki akses ke halaman ini.');
     }
 }
+
