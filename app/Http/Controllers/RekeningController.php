@@ -20,7 +20,7 @@ class RekeningController extends Controller
     public function index(Request $request)
     {
         $rekenings = Rekening::with(['pekerjaan', 'province', 'city', 'district', 'village'])
-            ->when($request->has('status'), function($query) use ($request) {
+            ->when($request->has('status'), function ($query) use ($request) {
                 return $query->where('status', $request->status);
             })
             ->get();
@@ -45,7 +45,13 @@ class RekeningController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_ktp' => 'required|string|unique:rekenings,nama_ktp|regex:/^[a-zA-Z\s]*$/',
+            'nama_ktp' => [
+                'required',
+                'string',
+                'unique:rekenings,nama_ktp',
+                'regex:/^[a-zA-Z\s]*$/',
+                new \App\Rules\ExcludeTitles // Custom rule to exclude certain titles
+            ],
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Wanita',
@@ -142,19 +148,19 @@ class RekeningController extends Controller
      */
     // app/Http/Controllers/RekeningController.php
 
-public function approve($id)
-{
-    $rekening = Rekening::findOrFail($id);
+    public function approve($id)
+    {
+        $rekening = Rekening::findOrFail($id);
 
-    if (Auth::user()->role !== 'Supervisi') {
-        abort(403, 'Unauthorized action.');
+        if (Auth::user()->role !== 'Supervisi') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $rekening->status = 'Disetujui';
+        $rekening->save();
+
+        return redirect()->route('rekening.index')->with('success', 'Rekening has been approved.');
     }
-
-    $rekening->status = 'Disetujui';
-    $rekening->save();
-
-    return redirect()->route('rekening.index')->with('success', 'Rekening has been approved.');
-}
 
 
     /**
