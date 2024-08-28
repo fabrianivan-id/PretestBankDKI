@@ -35,6 +35,7 @@ class RekeningController extends Controller
     {
         $pekerjaans = Pekerjaan::all();
         $provinces = Province::all();
+    
 
         return view('rekening.create', compact('pekerjaans', 'provinces'));
     }

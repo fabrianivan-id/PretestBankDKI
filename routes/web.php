@@ -9,7 +9,6 @@ use App\Http\Controllers\LocationController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-
 Route::get('login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
@@ -19,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::put('rekening/{id}/approve', [RekeningController::class, 'approve'])->name('rekening.approve');
 
     // Define AJAX endpoints for dynamic dropdowns
-    Route::get('getCities/{provinceId}', [LocationController::class, 'getCities']);
-    Route::get('getDistricts/{cityId}', [LocationController::class, 'getDistricts']);
-    Route::get('getVillages/{districtId}', [LocationController::class, 'getVillages']);
+    Route::get('/cities/{provinceId}', [LocationController::class, 'getCities']);
+    Route::get('/districts/{cityId}', [LocationController::class, 'getDistricts']);
+    Route::get('/villages/{districtId}', [LocationController::class, 'getVillages']);
 });
